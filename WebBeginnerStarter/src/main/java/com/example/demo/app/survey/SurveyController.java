@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -13,16 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/survey")
 public class SurveyController {
 	
-	//private final SurveyService surveyService;
-	
-	//public SurveyController(SurveyService surveyService){
-	//	this.surveyService = surveyService;
-	//}
-	
 	@GetMapping
 	public String index(Model model) {
-		
-		//hands-on
 		
 		return "survey/index";
 	}
@@ -30,8 +23,8 @@ public class SurveyController {
 	@GetMapping("/form")
 	public String form(SurveyForm surveyForm,
 			BindingResult result,
-			Model model) {
-		
+			Model model,
+			@ModelAttribute("complete") String complete) {		
 		model.addAttribute("title", "Survey Form");
 		
 		return "survey/form";
@@ -62,10 +55,10 @@ public class SurveyController {
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		if(result.hasErrors()) {
-			model.addAttribute("title", "Inquiry Form");
-			return "inquiry/from";
+			model.addAttribute("title", "Survey Form");
+			return "inquiry/form";
 		}
-		redirectAttributes.addFlashAttribute("complete", "Registerd!");
+		redirectAttributes.addFlashAttribute("complete", "Thank you for your cooperation!");
 		return "redirect:/survey/form";
 	}
 	
