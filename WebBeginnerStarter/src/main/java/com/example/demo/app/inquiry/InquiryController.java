@@ -81,7 +81,7 @@ public class InquiryController {
 		inquiry.setContents(inquiryForm.getContents());
 		inquiry.setCreated(LocalDateTime.now());
 		
-		inquiryService.save(inquiry);		
+		inquiryService.save(inquiry);
 		redirectAttributes.addFlashAttribute("complete", "Registerd!");
 		return "redirect:/inquiry/form";
 	}
